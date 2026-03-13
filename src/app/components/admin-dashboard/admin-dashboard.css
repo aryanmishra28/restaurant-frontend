@@ -1,0 +1,87 @@
+.pt-4 {
+    padding-top: var(--spacing-xl);
+}
+
+.mb-4 {
+    padding-bottom: var(--spacing-xl);
+}
+
+.status-badge {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.1);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-badge.pending {
+    background: rgba(255, 152, 0, 0.2);
+    color: #ff9800;
+}
+
+.status-badge.success {
+    background: rgba(76, 175, 80, 0.2);
+    color: #4caf50;
+}
+
+.fw-bold {
+    font-weight: 700;
+}
+
+.glass-input {
+    margin-bottom: 0;
+    width: 150px;
+    padding: 8px 12px;
+    background-color: rgba(20, 20, 20, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+.danger {
+    border-color: #f44336;
+    color: #f44336;
+    background: transparent;
+}
+
+.danger:hover {
+    background: rgba(244, 67, 54, 0.1);
+    box-shadow: 0 4px 10px rgba(244, 67, 54, 0.2);
+}
+
+.fade-in {
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 600px) {
+    .input-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .full-width {
+        grid-column: span 1;
+    }
+}

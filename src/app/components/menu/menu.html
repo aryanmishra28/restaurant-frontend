@@ -1,0 +1,71 @@
+<div class="container pt-4">
+    <div class="menu-layout">
+
+        <div class="menu-list-section">
+            <div class="section-header">
+                <h2>Our <span class="text-primary">Menu</span></h2>
+            </div>
+
+            <div *ngIf="loading" class="spinner-container">
+                <div class="spinner"></div>
+            </div>
+
+            <div class="menu-grid" *ngIf="!loading">
+                <div class="menu-card card" *ngFor="let item of menuItems">
+                    <div class="card-content">
+                        <h3 class="item-name">{{item.name}}</h3>
+                        <span class="item-price">${{item.price | number:'1.2-2'}}</span>
+                        <p class="item-desc text-muted" *ngIf="item.description">{{item.description}}</p>
+                    </div>
+                    <div class="card-actions mt-2">
+                        <button class="btn btn-sm" (click)="addToCart(item)" [disabled]="!item.isAvailable">
+                            {{ item.isAvailable ? 'Add to Cart' : 'Sold Out' }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="!loading && menuItems.length === 0" class="text-muted text-center mt-3">
+                No menu items available at the moment.
+            </div>
+        </div>
+
+        <div class="cart-section">
+            <div class="cart-card card glass-effect">
+                <h3>Your Order</h3>
+
+                <div class="empty-cart text-muted mt-2" *ngIf="cart.length === 0 && !orderSuccess">
+                    Your cart is empty.
+                </div>
+
+                <div class="success-msg mt-2" *ngIf="orderSuccess">
+                    Order placed successfully!
+                </div>
+
+                <div class="cart-items mt-2" *ngIf="cart.length > 0">
+                    <div class="cart-item" *ngFor="let c of cart">
+                        <div class="cart-item-info">
+                            <span style="font-weight: 600;">{{c.item.name}}</span>
+                            <span class="text-muted" style="margin-left: 8px; font-size: 0.9em;">x{{c.quantity}}</span>
+                        </div>
+                        <div class="cart-item-actions">
+                            <span class="item-total text-primary"
+                                style="margin-right: 12px; font-weight: 600;">${{(c.item.price * c.quantity) |
+                                number:'1.2-2'}}</span>
+                            <button class="btn-icon" (click)="removeFromCart(c.item)">-</button>
+                        </div>
+                    </div>
+
+                    <div class="cart-summary">
+                        <div class="summary-row total-row">
+                            <span>Total</span>
+                            <span class="text-primary">${{cartTotal | number:'1.2-2'}}</span>
+                        </div>
+                        <button class="btn btn-block w-100 mt-2" (click)="placeOrder()">Place Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

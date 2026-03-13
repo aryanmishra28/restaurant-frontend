@@ -1,0 +1,17 @@
+<nav class="glass-effect main-nav">
+  <div class="container nav-content">
+    <a routerLink="/" class="logo">
+      <span class="text-primary">Eatery</span> API
+    </a>
+    <ul class="nav-links">
+      <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
+      <li><a routerLink="/menu" routerLinkActive="active">Menu</a></li>
+      <li><a routerLink="/orders" routerLinkActive="active">My Orders</a></li>
+      <li><a routerLink="/admin" routerLinkActive="active">Admin</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="page-content">
+  <router-outlet></router-outlet>
+</main>

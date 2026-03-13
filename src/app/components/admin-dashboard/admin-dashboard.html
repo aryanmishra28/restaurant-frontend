@@ -1,0 +1,59 @@
+<div class="container pt-4 mb-4">
+    <div class="admin-header text-center mb-3">
+        <h2>Admin <span class="text-primary">Dashboard</span></h2>
+    </div>
+
+    <div class="tabs text-center mb-3">
+        <button class="btn" [class.btn-outline]="activeTab !== 'orders'" (click)="activeTab = 'orders'">Manage
+            Orders</button>
+        <button class="btn" style="margin-left: 12px;" [class.btn-outline]="activeTab !== 'menu'"
+            (click)="activeTab = 'menu'">Manage Menu</button>
+    </div>
+
+    <div *ngIf="activeTab === 'orders'" class="fade-in">
+        <div class="card glass-effect mb-2" *ngFor="let order of orders"
+            style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+            <div>
+                <h4>Order #{{order.id}} <span class="text-sm text-muted">- Customer: {{order.customerId}}</span></h4>
+                <div class="text-sm text-muted">{{order.orderDate | date:'medium'}}</div>
+                <div class="fw-bold mt-1 text-primary">${{order.totalAmount | number:'1.2-2'}}</div>
+            </div>
+            <div style="display: flex; gap: 8px; align-items: center;">
+                <span class="status-badge" [class.pending]="order.status === 'Pending'"
+                    [class.success]="order.status === 'Completed'">{{order.status}}</span>
+                <select *ngIf="order.status !== 'Completed'"
+                    (change)="updateOrderStatus(order.id, $any($event.target).value)" class="glass-input">
+                    <option value="" disabled selected>Update...</option>
+                    <option value="Preparing">Preparing</option>
+                    <option value="Out for Delivery">Out for Delivery</option>
+                    <option value="Completed">Completed</option>
+                </select>
+            </div>
+        </div>
+        <div *ngIf="orders.length === 0" class="text-center text-muted card glass-effect">No orders found.</div>
+    </div>
+
+    <div *ngIf="activeTab === 'menu'" class="menu-admin fade-in">
+        <div class="card glass-effect mb-3">
+            <h3>Add New Menu Item</h3>
+            <div class="input-grid mt-2">
+                <input type="text" [(ngModel)]="newItemName" placeholder="Item Name" />
+                <input type="number" [(ngModel)]="newItemPrice" placeholder="Price ($)" />
+                <input type="text" [(ngModel)]="newItemDesc" placeholder="Description (Optional)" class="full-width" />
+            </div>
+            <button class="btn mt-2" (click)="addMenuItem()" [disabled]="!newItemName || !newItemPrice">Add
+                Item</button>
+        </div>
+
+        <h3 class="mb-2">Current Menu</h3>
+        <div class="card glass-effect mb-2" *ngFor="let item of menuItems"
+            style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h4 style="margin-bottom: 4px;">{{item.name}}</h4>
+                <div class="text-primary fw-bold">${{item.price | number:'1.2-2'}}</div>
+            </div>
+            <button class="btn btn-outline danger" (click)="deleteMenuItem(item.id)">Delete</button>
+        </div>
+        <div *ngIf="menuItems.length === 0" class="text-center text-muted card glass-effect">Menu is empty.</div>
+    </div>
+</div>
