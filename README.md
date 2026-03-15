@@ -1,4 +1,8 @@
 # RestaurantFrontend
+This project is the frontend of Full Stack Restaurant Ordering System.
+
+Backend API Repo:
+https://github.com/aryanmishra28/restaurant-api
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.1.
 
